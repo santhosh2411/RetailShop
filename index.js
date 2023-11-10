@@ -5,8 +5,8 @@ const mongoose = require("mongoose");
 const app = express();
 const port = process.env.PORT;
 const MongoURI = process.env.MONGO_URI;
-const taskRoutes = require("./routes/ProductRoute");
-
+const productRoutes = require("./routes/ProductRoute");
+const orderRoutes = require("./routes/orderRoute");
 ///// middleware //////////
 
 app.use((req, res, next) => {
@@ -15,12 +15,6 @@ app.use((req, res, next) => {
 });
 
 app.use(express.json());
-
-//// API //////////
-
-// app.get("/", (req, res) => {
-//   res.send("Hello Santhosh");
-// });
 
 mongoose
   .connect(MongoURI)
@@ -31,4 +25,6 @@ mongoose
   })
   .catch((error) => console.log(error));
 
-app.use("/api/products", taskRoutes);
+app.use("/api/products", productRoutes);
+
+app.use("/api/orders", orderRoutes);
